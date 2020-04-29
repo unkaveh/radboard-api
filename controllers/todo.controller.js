@@ -30,11 +30,11 @@ exports.findAll = (request, response) => {
       })
 }
 
-// Find a single todo with a noteId
+// Find a single todo with a todo
 exports.findOne = (request, response, next) => {
     Todo.findById(request.params.id)
     .then(todo => {
-        if (note) {
+        if (todo) {
           response.json(todo.toJSON())
         } else {
           response.status(404).end()
@@ -43,7 +43,7 @@ exports.findOne = (request, response, next) => {
       .catch(error => next(error))
 };
 
-// Update a todo identified by the noteId in the request
+// Update a todo identified by the todoId in the request
 exports.update = (request, response, next) => {
     const body = request.body
     const todo = new Todo({
@@ -60,7 +60,7 @@ exports.update = (request, response, next) => {
         .catch(error => next(error))
 };
 
-// Delete a todo with the specified noteId in the request
+// Delete a todo with the specified todoId in the request
 exports.delete = (request, response, next) => {
     Todo.findByIdAndRemove(request.params.id)
         .then(result => {
