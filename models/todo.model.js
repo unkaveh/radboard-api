@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 mongoose.set('useFindAndModify', false)
-const url = process.env.MONGODB_URI
+const url = 'mongodb+srv://root:b3nq258@cluster1-rbdyf.mongodb.net/test?retryWrites=true&w=majority'
 console.log('connecting to', url)
 
 mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true })
