@@ -2,11 +2,7 @@ const Todo = require('../models/todo.model')
 
 // Create a single Todo
 exports.create = (request, response, next) => {
-    console.log('Request:',request)
-    console.log('Request Type:',typeof request);
     const body = request.body
-    console.log(body)
-    console.log(response)
     const todo = new Todo({
         title: body.title,
         content: body.content,
@@ -36,7 +32,7 @@ exports.findAll = (request, response) => {
 
 
 // Find a single todo with a noteId
-exports.findOne = (req, res) => {
+exports.findOne = (request, response, next) => {
 
 };
 

@@ -7,18 +7,7 @@ var logger = require('morgan');
 require('dotenv').config();
 var cors = require('cors');
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-var testAPIRouter = require('./routes/testAPI');
-var testAPIController = require('./controllers/todo.controller')
-const Todo = require('./models/todo.model');
-
-let todos =
-  {
-      id: 1,
-      title: "bullshit",
-      content: "HTML is easy",
-      date: "2019-05-30T17:30:31.098Z",
-  }
+var todoRouter = require('./routes/todoAPI');
 
 
 var app = express();
@@ -38,21 +27,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
-app.use('/testAPI', testAPIRouter);
+app.use('/todo', todoRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
 });
-
-//API Calls
-
-app.get('/api/todo', (request, response) => {
-  Todo.find({}).then(todos => {
-    response.json(todos.map(todo => todos.toJSON()))
-  })
-})
 
 // error handler
 app.use(function(err, req, res, next) {
