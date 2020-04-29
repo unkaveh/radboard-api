@@ -30,18 +30,41 @@ exports.findAll = (request, response) => {
       })
 }
 
-
 // Find a single todo with a noteId
 exports.findOne = (request, response, next) => {
-
+    Todo.findById(request.params.id)
+    .then(todo => {
+        if (note) {
+          response.json(todo.toJSON())
+        } else {
+          response.status(404).end()
+        }
+      })
+      .catch(error => next(error))
 };
 
 // Update a todo identified by the noteId in the request
-exports.update = (req, res) => {
+exports.update = (request, response, next) => {
+    const body = request.body
+    const todo = new Todo({
+        title: body.title,
+        content: body.content,
+        date: new Date(),
+        completed: body.completed || false
+    })
 
+    Todo.findByIdAndUpdate(request.params.id, todo, {new: true})
+        .then(updatedTodo => {
+            response.json(updatedTodo.toJSON())
+        })
+        .catch(error => next(error))
 };
 
 // Delete a todo with the specified noteId in the request
-exports.delete = (req, res) => {
-
+exports.delete = (request, response, next) => {
+    Todo.findByIdAndRemove(request.params.id)
+        .then(result => {
+            response.status(204).end()
+        })
+        .catch(error => next(error))
 };
