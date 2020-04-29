@@ -4,7 +4,10 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "dev": "nodemon ./bin/www"
+    "dev": "nodemon ./bin/www",
+    "deploy": "git push heroku master",
+    "deploy:full": "git add . && git commit -m deploybuild && npm run deploy",
+    "logs:prod": "heroku logs --tail"
   },
   "dependencies": {
     "body-parser": "^1.19.0",
