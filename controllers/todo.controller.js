@@ -53,7 +53,7 @@ exports.update = (request, response, next) => {
         completed: body.completed || false
     })
 
-    Todo.findByIdAndUpdate(request.params.id, todo, {new: true})
+    Todo.findById(request.params.id, todo, {new: true})
         .then(updatedTodo => {
             response.json(updatedTodo.toJSON())
         })
