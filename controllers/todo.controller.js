@@ -43,22 +43,21 @@ exports.findOne = (request, response, next) => {
       .catch(error => next(error))
 };
 
-// Update a todo identified by the todoId in the request
 exports.update = (request, response, next) => {
     const body = request.body
-    const todo = new Todo({
-        title: body.title,
-        content: body.content,
-        date: new Date(),
-        completed: body.completed || false
-    })
 
-    Todo.findById(request.params.id, todo)
-        .then(updatedTodo => {
-            response.json(updatedTodo.toJSON())
+    const todo = {
+        content: body.content,
+        completed: body.completed || false
+    }
+
+    Todo.findByIdAndUpdate(request.params.id, todo, { new: true })
+        .then(updatedToto => {
+            response.json(updatedToto.toJSON())
+            console.log(response)
         })
         .catch(error => next(error))
-};
+}
 
 // Delete a todo with the specified todoId in the request
 exports.delete = (request, response, next) => {
